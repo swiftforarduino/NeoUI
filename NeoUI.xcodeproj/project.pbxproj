@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F9341EF250F82AC009BFFC7 /* SpectrumWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */; };
 		8FEEE6A525090C8F00F8DD20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */; };
 		8FEEE6A725090C8F00F8DD20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */; };
 		8FEEE6A925090C8F00F8DD20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A825090C8F00F8DD20 /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpectrumWheelView.swift; sourceTree = "<group>"; };
 		8FEEE6A125090C8F00F8DD20 /* NeoUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */,
 				8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */,
+				8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */,
 				8FEEE6A825090C8F00F8DD20 /* ContentView.swift */,
 				8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */,
 				8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */,
@@ -148,6 +151,7 @@
 			files = (
 				8FEEE6A525090C8F00F8DD20 /* AppDelegate.swift in Sources */,
 				8FEEE6A725090C8F00F8DD20 /* SceneDelegate.swift in Sources */,
+				8F9341EF250F82AC009BFFC7 /* SpectrumWheelView.swift in Sources */,
 				8FEEE6A925090C8F00F8DD20 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
