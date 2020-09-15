@@ -10,9 +10,22 @@
 import SwiftUI
 
 struct ContentView: View {
+//    @GestureState var currentColor: (hue: CGFloat, value: CGFloat) = (0, 0)
+
     var body: some View {
-        SpectrumWheelView(saturation: 1.0, width: 300.0, height: 300.0)
-        .background(Color.black)
+        let wheelView = SpectrumWheelView(saturation: 1.0, currentColor: (200, 50))
+
+//        let drag =
+//            DragGesture(minimumDistance: 0)
+//                .updating($currentColor) { (dragValue, currentColor, _) in
+////                    print("\(dragValue.location) -> \(SpectrumWheelView.color(forLocation: dragValue.location))")
+//                    currentColor = SpectrumWheelView.color(forLocation: dragValue.location)
+//        }
+
+        return wheelView
+            .padding()
+            .background(Color.black)
+//            .gesture(drag)
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F9341EF250F82AC009BFFC7 /* SpectrumWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */; };
+		8F9341F32510D489009BFFC7 /* CurrentColourHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */; };
 		8FEEE6A525090C8F00F8DD20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */; };
 		8FEEE6A725090C8F00F8DD20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */; };
 		8FEEE6A925090C8F00F8DD20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A825090C8F00F8DD20 /* ContentView.swift */; };
@@ -18,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpectrumWheelView.swift; sourceTree = "<group>"; };
+		8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentColourHighlightView.swift; sourceTree = "<group>"; };
+		8F9341F42510D865009BFFC7 /* NeoUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NeoUI.entitlements; sourceTree = "<group>"; };
 		8FEEE6A125090C8F00F8DD20 /* NeoUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,9 +61,11 @@
 		8FEEE6A325090C8F00F8DD20 /* NeoUI */ = {
 			isa = PBXGroup;
 			children = (
+				8F9341F42510D865009BFFC7 /* NeoUI.entitlements */,
 				8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */,
 				8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */,
 				8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */,
+				8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */,
 				8FEEE6A825090C8F00F8DD20 /* ContentView.swift */,
 				8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */,
 				8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */,
@@ -149,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F9341F32510D489009BFFC7 /* CurrentColourHighlightView.swift in Sources */,
 				8FEEE6A525090C8F00F8DD20 /* AppDelegate.swift in Sources */,
 				8FEEE6A725090C8F00F8DD20 /* SceneDelegate.swift in Sources */,
 				8F9341EF250F82AC009BFFC7 /* SpectrumWheelView.swift in Sources */,
@@ -288,17 +294,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NeoUI/NeoUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"NeoUI/Preview Content\"";
 				DEVELOPMENT_TEAM = SWDC5K54B7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = NeoUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.petosoft.NeoUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -308,17 +317,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NeoUI/NeoUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"NeoUI/Preview Content\"";
 				DEVELOPMENT_TEAM = SWDC5K54B7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = NeoUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.petosoft.NeoUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
