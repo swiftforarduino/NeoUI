@@ -8,17 +8,22 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
-private func getColourData(hue: CGFloat, value: CGFloat) -> Data {
+// in this simple version we are only representing hue and brightness, with 100% saturation always
+// hue is 0-255, value is 0-100
+typealias NeoColour = (hue: CGFloat, value: CGFloat)
+
+private func getColourData(_ colour: NeoColour) -> Data {
     let buffer = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: 4)
     buffer[0] = Character("H").asciiValue!
-    buffer[1] = UInt8(truncatingIfNeeded: Int(hue))
+    buffer[1] = UInt8(truncatingIfNeeded: Int(colour.hue))
     buffer[2] = Character("V").asciiValue!
-    buffer[3] = UInt8(truncatingIfNeeded: Int(value))
+    buffer[3] = UInt8(truncatingIfNeeded: Int(colour.value))
     return Data(buffer: buffer)
 }
 
-private func interpretColourData(data: Data) -> (hue: CGFloat, value: CGFloat)? {
+private func interpretColourData(data: Data) -> NeoColour? {
     if data.count >= 4 {
         return data.withUnsafeBytes { (buffer: UnsafePointer<UInt8>) -> (CGFloat, CGFloat) in
             var hue: CGFloat = 0
@@ -70,12 +75,14 @@ extension Bluetooth.State: CustomStringConvertible {
 }
 
 class ColourObserver: ObservableObject {
-    @Published var currentColor: (hue: CGFloat, value: CGFloat)?
-    @Published var currentState: String = ""
+    @Published var currentColor: NeoColour?
+    @Published var currentState: String?
+    @Published var controlsDisabled: Bool = false
     
     private var btEnabledStateObserver: AnyCancellable?
     private var colourObserver: AnyCancellable?
     private var statusObserver: AnyCancellable?
+    private var controlsDisabledObserver: AnyCancellable?
 
     func setupSubscribers() {
         // base publishers
@@ -98,30 +105,16 @@ class ColourObserver: ObservableObject {
         // derived publishers
         let bluetoothStatusName = bluetoothStatus.map { $0?.description }
         let bluetoothTransmitEnabled = bluetoothStatus.map{$0 == .notifying}
-//        let hue = colour.map({$0?.hue})
-//        let value = colour.map({$0?.value})
-//        let hueF = hue.compactMap{$0}.map{Float($0)}
-//        let valueF = value.compactMap{$0}.map{Float($0)}
         // slight hack: create a publisher that needs at least one value from colour and status so we know we have
         // received a value for the colour from the board before we show the controls for the first time
         let showControls = Publishers.CombineLatest(bluetoothTransmitEnabled, colour).map{$0.0}
         let controlsDisabled = showControls.map { !$0 }
         
         // subscribers
-        colourObserver = color.assign(to: \.currentColor, on: self)
+        colourObserver = colour.assign(to: \.currentColor, on: self)
         statusObserver = bluetoothStatusName.assign(to: \.currentState, on: self)
-//        hueObserver = hue.assign(to: \.currentHue, on: self)
-//        valueObserver = value.assign(to: \.currentValue, on: self)
+        controlsDisabledObserver = controlsDisabled.assign(to: \.controlsDisabled, on: self)
 
-        // old UI assignments, SwiftUI does it differently
-//        bluetoothStatusName.subscribe(Subscribers.Assign(object: bluetoothStateLabel, keyPath: \.text))
-//        bluetoothTransmitEnabled.subscribe(Subscribers.Assign(object: sendButton, keyPath: \.isEnabled))
-//        hueF.subscribe(Subscribers.Assign(object: hueSlider, keyPath: \.value))
-//        valueF.subscribe(Subscribers.Assign(object: valueSlider, keyPath: \.value))
-//        controlsDisabled.subscribe(Subscribers.Assign(object: hueColour, keyPath: \.isHidden))
-//        controlsDisabled.subscribe(Subscribers.Assign(object: hueSlider, keyPath: \.isHidden))
-//        controlsDisabled.subscribe(Subscribers.Assign(object: valueSlider, keyPath: \.isHidden))
-        
         // when bluetooth becomes available, ask what the current colour is
         btEnabledStateObserver = bluetoothTransmitEnabled.sink { enabled in
             if enabled {
@@ -136,6 +129,6 @@ class ColourObserver: ObservableObject {
             return
         }
         
-        Bluetooth.shared.send(data: getColourData(hue: currentColor.hue, value: currentColor.value))
+        Bluetooth.shared.send(data: getColourData(currentColor))
     }
 }

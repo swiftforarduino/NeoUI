@@ -104,14 +104,12 @@
 		8FF564132511848D006ECE58 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				8FF56417251198AD006ECE58 /* ColourWheelPickerView.swift */,
-				8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */,
-				8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */,
-				8FEEE6AC25090C9100F8DD20 /* Preview Content */,
 				8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */,
+				8FF56417251198AD006ECE58 /* ColourWheelPickerView.swift */,
+				8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */,
 				8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */,
 				8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */,
-				8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */,
+				8FEEE6AC25090C9100F8DD20 /* Preview Content */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -119,6 +117,8 @@
 		8FF56414251184B7006ECE58 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */,
+				8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */,
 				8FEEE6B225090C9100F8DD20 /* Info.plist */,
 				8F9341F42510D865009BFFC7 /* NeoUI.entitlements */,
 			);
@@ -338,12 +338,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = NeoUI/NeoUI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NeoUI/Resources/NeoUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"NeoUI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NeoUI/UI/Preview Content\"";
 				DEVELOPMENT_TEAM = SWDC5K54B7;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = NeoUI/Info.plist;
+				INFOPLIST_FILE = NeoUI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -361,12 +361,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = NeoUI/NeoUI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NeoUI/Resources/NeoUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"NeoUI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NeoUI/UI/Preview Content\"";
 				DEVELOPMENT_TEAM = SWDC5K54B7;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = NeoUI/Info.plist;
+				INFOPLIST_FILE = NeoUI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

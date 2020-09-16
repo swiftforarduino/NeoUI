@@ -8,17 +8,26 @@
 //  credit to: https://sarunw.com/posts/gradient-in-swiftui/#angulargradient
 
 import SwiftUI
+import Combine
 
 struct ColourWheelPickerView: View {
-    @Bindable var currentColour: (hue: CGFloat, value: CGFloat)?
-    @Bindable var currentStatus: String = ""
+    @EnvironmentObject var colourObserver: ColourObserver
 
     var body: some View {
-        VStack {
-            Text($currentStatus)
-            SpectrumWheelView(saturation: 1.0, currentColor: self.$currentColour)
-                .padding()
-                .background(Color.black)
+        ZStack {
+            Color
+                .black
+                .edgesIgnoringSafeArea(.all)
+
+            VStack {
+                Text(self.colourObserver.currentState ?? "- - -")
+                    .foregroundColor(.gray)
+
+                SpectrumWheelView()
+                    .padding()
+                    .aspectRatio(contentMode: .fit)
+            }
+            .background(Color.black)
         }
     }
 }
@@ -26,6 +35,12 @@ struct ColourWheelPickerView: View {
 struct ColourWheelPickerView_Previews: PreviewProvider {
     static var previews: some View {
         ColourWheelPickerView()
+            .environmentObject(ColourObserver())
     }
 }
                                
+extension CGSize {
+    var aspectFitSize: CGFloat {
+        width > height ? height : width
+    }
+}

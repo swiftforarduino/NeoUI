@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController interfaceStyle="light" id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KAr-ID-0lG">
+                                <rect key="frame" x="0.0" y="231" width="414" height="434.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="neopixel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxV-oW-3L4">
+                                        <rect key="frame" x="175" y="0.0" width="64" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUI-kc-q0D">
+                                        <rect key="frame" x="0.0" y="20.5" width="414" height="414"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NeoUItrans" translatesAutoresizingMaskIntoConstraints="NO" id="p8V-J3-wbV">
+                                                <rect key="frame" x="10" y="10" width="394" height="394"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="p8V-J3-wbV" secondAttribute="height" multiplier="1:1" id="fJb-tA-UEf"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="p8V-J3-wbV" firstAttribute="leading" secondItem="dUI-kc-q0D" secondAttribute="leading" constant="10" id="1A7-tZ-OFj"/>
+                                            <constraint firstItem="p8V-J3-wbV" firstAttribute="top" secondItem="dUI-kc-q0D" secondAttribute="top" constant="10" id="7zI-Q5-sDh"/>
+                                            <constraint firstAttribute="bottom" secondItem="p8V-J3-wbV" secondAttribute="bottom" constant="10" id="L3K-hJ-DDa"/>
+                                            <constraint firstAttribute="trailing" secondItem="p8V-J3-wbV" secondAttribute="trailing" constant="10" id="esX-1q-J7A"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KAr-ID-0lG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2fT-ma-GQ7"/>
+                            <constraint firstItem="KAr-ID-0lG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZoN-WI-pew"/>
+                            <constraint firstItem="KAr-ID-0lG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cWd-if-G8L"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KAr-ID-0lG" secondAttribute="bottom" id="dVN-g9-iTC"/>
+                            <constraint firstItem="KAr-ID-0lG" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="sOI-zo-eda"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KAr-ID-0lG" secondAttribute="trailing" id="uqL-ew-FBG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="NeoUItrans" width="1024" height="1024"/>
+    </resources>
+</document>
