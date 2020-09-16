@@ -11,10 +11,13 @@
 		8F9341F32510D489009BFFC7 /* CurrentColourHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */; };
 		8FEEE6A525090C8F00F8DD20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */; };
 		8FEEE6A725090C8F00F8DD20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */; };
-		8FEEE6A925090C8F00F8DD20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEEE6A825090C8F00F8DD20 /* ContentView.swift */; };
 		8FEEE6AB25090C9100F8DD20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */; };
 		8FEEE6AE25090C9100F8DD20 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FEEE6AD25090C9100F8DD20 /* Preview Assets.xcassets */; };
 		8FEEE6B125090C9100F8DD20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */; };
+		8FF5640E2511834A006ECE58 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF5640D2511834A006ECE58 /* Bluetooth.swift */; };
+		8FF5641125118367006ECE58 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF5641025118367006ECE58 /* CoreBluetooth.framework */; };
+		8FF56416251188BF006ECE58 /* ColourObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF56415251188BF006ECE58 /* ColourObserver.swift */; };
+		8FF56418251198AD006ECE58 /* ColourWheelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF56417251198AD006ECE58 /* ColourWheelPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,11 +27,14 @@
 		8FEEE6A125090C8F00F8DD20 /* NeoUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8FEEE6A825090C8F00F8DD20 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FEEE6AD25090C9100F8DD20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8FEEE6B025090C9100F8DD20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FEEE6B225090C9100F8DD20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FF5640D2511834A006ECE58 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
+		8FF5641025118367006ECE58 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		8FF56415251188BF006ECE58 /* ColourObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourObserver.swift; sourceTree = "<group>"; };
+		8FF56417251198AD006ECE58 /* ColourWheelPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColourWheelPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FF5641125118367006ECE58 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +54,7 @@
 			children = (
 				8FEEE6A325090C8F00F8DD20 /* NeoUI */,
 				8FEEE6A225090C8F00F8DD20 /* Products */,
+				8FF5640F25118366006ECE58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,16 +69,9 @@
 		8FEEE6A325090C8F00F8DD20 /* NeoUI */ = {
 			isa = PBXGroup;
 			children = (
-				8F9341F42510D865009BFFC7 /* NeoUI.entitlements */,
-				8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */,
-				8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */,
-				8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */,
-				8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */,
-				8FEEE6A825090C8F00F8DD20 /* ContentView.swift */,
-				8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */,
-				8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */,
-				8FEEE6B225090C9100F8DD20 /* Info.plist */,
-				8FEEE6AC25090C9100F8DD20 /* Preview Content */,
+				8FF56414251184B7006ECE58 /* Resources */,
+				8FF564132511848D006ECE58 /* UI */,
+				8FF5641225118482006ECE58 /* Non UI */,
 			);
 			path = NeoUI;
 			sourceTree = "<group>";
@@ -81,6 +82,47 @@
 				8FEEE6AD25090C9100F8DD20 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8FF5640F25118366006ECE58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FF5641025118367006ECE58 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8FF5641225118482006ECE58 /* Non UI */ = {
+			isa = PBXGroup;
+			children = (
+				8FF5640D2511834A006ECE58 /* Bluetooth.swift */,
+				8FF56415251188BF006ECE58 /* ColourObserver.swift */,
+			);
+			path = "Non UI";
+			sourceTree = "<group>";
+		};
+		8FF564132511848D006ECE58 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8FF56417251198AD006ECE58 /* ColourWheelPickerView.swift */,
+				8FEEE6AA25090C9100F8DD20 /* Assets.xcassets */,
+				8FEEE6AF25090C9100F8DD20 /* LaunchScreen.storyboard */,
+				8FEEE6AC25090C9100F8DD20 /* Preview Content */,
+				8FEEE6A425090C8F00F8DD20 /* AppDelegate.swift */,
+				8FEEE6A625090C8F00F8DD20 /* SceneDelegate.swift */,
+				8F9341EE250F82AC009BFFC7 /* SpectrumWheelView.swift */,
+				8F9341F22510D489009BFFC7 /* CurrentColourHighlightView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		8FF56414251184B7006ECE58 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8FEEE6B225090C9100F8DD20 /* Info.plist */,
+				8F9341F42510D865009BFFC7 /* NeoUI.entitlements */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,9 +198,11 @@
 			files = (
 				8F9341F32510D489009BFFC7 /* CurrentColourHighlightView.swift in Sources */,
 				8FEEE6A525090C8F00F8DD20 /* AppDelegate.swift in Sources */,
+				8FF56418251198AD006ECE58 /* ColourWheelPickerView.swift in Sources */,
 				8FEEE6A725090C8F00F8DD20 /* SceneDelegate.swift in Sources */,
+				8FF56416251188BF006ECE58 /* ColourObserver.swift in Sources */,
 				8F9341EF250F82AC009BFFC7 /* SpectrumWheelView.swift in Sources */,
-				8FEEE6A925090C8F00F8DD20 /* ContentView.swift in Sources */,
+				8FF5640E2511834A006ECE58 /* Bluetooth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
