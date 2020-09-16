@@ -124,7 +124,7 @@ class ColourObserver: ObservableObject {
         }
     }
     
-    func sendCurrentColur() {
+    func sendCurrentColour() {
         guard let currentColor = currentColor else {
             return
         }

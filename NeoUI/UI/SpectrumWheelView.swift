@@ -44,10 +44,38 @@ struct SpectrumWheelView: View {
                 DragGesture(minimumDistance: 0)
                     .updating(self.$currentDragColor) { (dragValue, currentDragColor, _) in
                             currentDragColor = SpectrumWheelView.color(forLocation: dragValue.location)
-                    })
+                    }
+                .onEnded { dragValue in
+                    self.colourObserver.currentColor =
+                        SpectrumWheelView.color(forLocation: dragValue.location)
+                    self.colourObserver.sendCurrentColour()
+                }
+            )
         }
     }
 
+    private static var radius: CGFloat = 0 // nasty hack
+}
+
+struct SpectrumWheelView_Previews: PreviewProvider {
+    static var previews: some View {
+        SpectrumWheelView()
+        .environmentObject(ColourObserver())
+//        VStack {
+////            SpectrumWheelView(saturation: 0.1)
+////                .frame(width: 100, height: 100)
+////            SpectrumWheelView(saturation: 0.3)
+////                .frame(width: 200, height: 200)
+//            SpectrumWheelView(saturation: 1.0)
+//                .frame(width: 300, height: 300)
+//        }
+//        .environmentObject(ColourObserver())
+    }
+}
+
+
+/* private */
+extension SpectrumWheelView {
     private static func spectrumWheel(
         saturation: Double,
         brightness: Double,
@@ -62,8 +90,6 @@ struct SpectrumWheelView: View {
             .fill(AngularGradient(gradient: gradient, center: .center))
             .frame(width: radius * CGFloat(brightness) * 2, height: radius * CGFloat(brightness) * 2)
     }
-
-    static var radius: CGFloat = 0 // nasty hack
 
     static func color(forLocation location: CGPoint) -> (hue: CGFloat, value: CGFloat) {
         let screenRadius = radius // nasty hack
@@ -109,33 +135,5 @@ struct SpectrumWheelView: View {
         }
 
         return (hue: angle / .pi * 255 / 2, value: normalisedRadius * 100)
-    }
-}
-
-
-struct SpectrumWheelView_Previews: PreviewProvider {
-    static var previews: some View {
-        SpectrumWheelView()
-        .environmentObject(ColourObserver())
-//        VStack {
-////            SpectrumWheelView(saturation: 0.1)
-////                .frame(width: 100, height: 100)
-////            SpectrumWheelView(saturation: 0.3)
-////                .frame(width: 200, height: 200)
-//            SpectrumWheelView(saturation: 1.0)
-//                .frame(width: 300, height: 300)
-//        }
-//        .environmentObject(ColourObserver())
-    }
-}
-
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-extension View {
-    dynamic public func offset(
-        radius: CGFloat,
-        angle: CGFloat) -> some View {
-        let x = cos(angle) * radius
-        let y = -sin(angle) * radius
-        return offset(x: x, y: y)
     }
 }
