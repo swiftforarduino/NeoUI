@@ -18,40 +18,57 @@ struct SpectrumWheelView: View {
         if let currentDragColor = currentDragColor {
             return currentDragColor
         } else {
-            return colourObserver.currentColor ?? (0,0)
+            return colourObserver.currentColor
         }
     }
 
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                ForEach(0..<51) { brightness in
-                    SpectrumWheelView.spectrumWheel(
-                        saturation: self.saturation,
-                        brightness: Double(50-brightness) / 50.0,
-                        size: geometry.size)
-                }
+                if self.colourObserver.currentColor.on {
+                    ZStack {
+                        ForEach(0..<51) { brightness in
+                            SpectrumWheelView.spectrumWheel(
+                                saturation: self.saturation,
+                                brightness: Double(50-brightness) / 50.0,
+                                size: geometry.size)
+                        }
 
-                CurrentColourHighlightView()
-                    .frame(
-                        width: 30,
-                        height: 30)
-                    .offset(
-                        radius: geometry.size.width / 200 * self.colourToHighlight.value,
-                        angle: self.colourToHighlight.hue / 255 * .pi * 2)
-            }
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .updating(self.$currentDragColor) { (dragValue, currentDragColor, _) in
-                            currentDragColor = SpectrumWheelView.color(forLocation: dragValue.location)
+                        CurrentColourHighlightView()
+                            .frame(
+                                width: 30,
+                                height: 30)
+                            .offset(
+                                radius: geometry.size.width / 200 * self.colourToHighlight.value,
+                                angle: self.colourToHighlight.hue / 255 * .pi * 2)
                     }
-                .onEnded { dragValue in
-                    self.colourObserver.currentColor =
-                        SpectrumWheelView.color(forLocation: dragValue.location)
-                    self.colourObserver.sendCurrentColour()
+                    .gesture(
+                        ExclusiveGesture(
+                            TapGesture(count: 2)
+                                .onEnded{
+                                    self.colourObserver.currentColor.on = false
+                                },
+
+                        DragGesture(minimumDistance: 0)
+                            .updating(self.$currentDragColor) { (dragValue, currentDragColor, _) in
+                                    currentDragColor = SpectrumWheelView.color(forLocation: dragValue.location)
+                            }
+                        .onEnded { dragValue in
+                            let newColor = SpectrumWheelView.color(forLocation: dragValue.location)
+
+                            self.colourObserver.currentColor =
+                                (newColor.hue, newColor.value, self.colourObserver.currentColor.on)
+
+                            self.colourObserver.sendCurrentColour()
+                        }))
+                } else {
+                    Circle()
+                        .foregroundColor(.gray)
+                        .onTapGesture(count: 2) {
+                            self.colourObserver.currentColor.on = true
+                        }
                 }
-            )
         }
+        .animation(.easeInOut)
     }
 
     private static var radius: CGFloat = 0 // nasty hack
@@ -59,8 +76,11 @@ struct SpectrumWheelView: View {
 
 struct SpectrumWheelView_Previews: PreviewProvider {
     static var previews: some View {
-        SpectrumWheelView()
-        .environmentObject(ColourObserver())
+        ZStack {
+            Color.black
+            SpectrumWheelView()
+            .environmentObject(ColourObserver())
+        }
 //        VStack {
 ////            SpectrumWheelView(saturation: 0.1)
 ////                .frame(width: 100, height: 100)
@@ -81,17 +101,19 @@ extension SpectrumWheelView {
         brightness: Double,
         size: CGSize) -> some View {
 
-        let gradient = Gradient(colors: stride(from: 0.0, to: 1.0, by: 0.01).map { Color(hue: $0, saturation: saturation, brightness: brightness) })
+        // gradient goes "backwards" because Angular Gradient goes clockwise
+        // and normal math trig functions go the other way
+        let gradient = Gradient(colors: stride(from: 1.0, to: 0.0, by: -0.01).map { Color(hue: $0, saturation: saturation, brightness: brightness) })
         let radius = min(size.width, size.height) / 2
         self.radius = radius // nasty hack
 
         return
             Circle()
-            .fill(AngularGradient(gradient: gradient, center: .center))
+                .fill(AngularGradient(gradient: gradient, center: .center))
             .frame(width: radius * CGFloat(brightness) * 2, height: radius * CGFloat(brightness) * 2)
     }
 
-    static func color(forLocation location: CGPoint) -> (hue: CGFloat, value: CGFloat) {
+    static func color(forLocation location: CGPoint) -> NeoColour {
         let screenRadius = radius // nasty hack
 
         let x = max(min(location.x / screenRadius - 1, 1), -1) // x as -1.0 to 1.0
@@ -134,6 +156,6 @@ extension SpectrumWheelView {
             }
         }
 
-        return (hue: angle / .pi * 255 / 2, value: normalisedRadius * 100)
+        return (hue: angle / .pi * 255 / 2, value: normalisedRadius * 100, true)
     }
 }

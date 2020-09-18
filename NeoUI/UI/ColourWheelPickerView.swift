@@ -20,7 +20,7 @@ struct ColourWheelPickerView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
-                Text(self.colourObserver.currentState ?? "- - -")
+                Text(self.colourObserver.currentState)
                     .foregroundColor(.gray)
 
                 SpectrumWheelView()

@@ -11,8 +11,8 @@ import Combine
 import SwiftUI
 
 // in this simple version we are only representing hue and brightness, with 100% saturation always
-// hue is 0-255, value is 0-100
-typealias NeoColour = (hue: CGFloat, value: CGFloat)
+// hue is 0-255, value is 0-100, on is boolean but ignored in some cases
+typealias NeoColour = (hue: CGFloat, value: CGFloat, on: Bool)
 
 private func getColourData(_ colour: NeoColour) -> Data {
     let buffer = UnsafeMutableBufferPointer<UInt8>.allocate(capacity: 4)
@@ -23,11 +23,12 @@ private func getColourData(_ colour: NeoColour) -> Data {
     return Data(buffer: buffer)
 }
 
-private func interpretColourData(data: Data) -> NeoColour? {
+private func interpretColourData(data: Data) -> NeoColour {
     if data.count >= 4 {
-        return data.withUnsafeBytes { (buffer: UnsafePointer<UInt8>) -> (CGFloat, CGFloat) in
+        return data.withUnsafeBytes { (buffer: UnsafePointer<UInt8>) -> (CGFloat, CGFloat, Bool) in
             var hue: CGFloat = 0
             var value: CGFloat = 0
+            var on: Bool = true
             
             if buffer[0] == Character("H").asciiValue {
                 hue = CGFloat(Int(buffer[1]))
@@ -36,11 +37,15 @@ private func interpretColourData(data: Data) -> NeoColour? {
             if buffer[2] == Character("V").asciiValue {
                 value = CGFloat(Int(buffer[3]))
             }
+
+            if data.count >= 6, buffer[4] == Character("1").asciiValue {
+                on = Int(buffer[5]) == 1
+            }
             
-            return (hue, value)
+            return (hue, value, on)
         }
     } else {
-        return nil
+        return (0,0,true)
     }
 }
 
@@ -75,8 +80,8 @@ extension Bluetooth.State: CustomStringConvertible {
 }
 
 class ColourObserver: ObservableObject {
-    @Published var currentColor: NeoColour?
-    @Published var currentState: String?
+    @Published var currentColor: NeoColour = (0,0,true)
+    @Published var currentState: String = ""
     @Published var controlsDisabled: Bool = false
     
     private var btEnabledStateObserver: AnyCancellable?
@@ -103,7 +108,7 @@ class ColourObserver: ObservableObject {
             .map(interpretColourData)
         
         // derived publishers
-        let bluetoothStatusName = bluetoothStatus.map { $0?.description }
+        let bluetoothStatusName = bluetoothStatus.map { $0?.description ?? "---" }
         let bluetoothTransmitEnabled = bluetoothStatus.map{$0 == .notifying}
         // slight hack: create a publisher that needs at least one value from colour and status so we know we have
         // received a value for the colour from the board before we show the controls for the first time
@@ -124,11 +129,7 @@ class ColourObserver: ObservableObject {
         }
     }
     
-    func sendCurrentColour() {
-        guard let currentColor = currentColor else {
-            return
-        }
-        
+    func sendCurrentColour() {        
         Bluetooth.shared.send(data: getColourData(currentColor))
     }
 }
