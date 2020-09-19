@@ -8,7 +8,7 @@
 
 import Foundation
 import Combine
-import SwiftUI
+import CoreGraphics
 
 // in this simple version we are only representing hue and brightness, with 100% saturation always
 // hue is 0-255, value is 0-100, on is boolean but ignored in some cases
@@ -131,5 +131,21 @@ class ColourObserver: ObservableObject {
     
     func sendCurrentColour() {        
         Bluetooth.shared.send(data: getColourData(currentColor))
+    }
+
+    func sendFastTurnOff() {
+        Bluetooth.shared.send(data: "0".data(using: .ascii)!)
+    }
+
+    func sendFastTurnOn() {
+        Bluetooth.shared.send(data: "1".data(using: .ascii)!)
+    }
+
+    func sendFadeOut() {
+        Bluetooth.shared.send(data: "2".data(using: .ascii)!)
+    }
+
+    func sendFadeIn() {
+        Bluetooth.shared.send(data: "3".data(using: .ascii)!)
     }
 }

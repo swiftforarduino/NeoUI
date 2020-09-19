@@ -46,6 +46,7 @@ struct SpectrumWheelView: View {
                             TapGesture(count: 2)
                                 .onEnded{
                                     self.colourObserver.currentColor.on = false
+                                    self.colourObserver.sendFadeOut()
                                 },
 
                         DragGesture(minimumDistance: 0)
@@ -65,6 +66,7 @@ struct SpectrumWheelView: View {
                         .foregroundColor(.gray)
                         .onTapGesture(count: 2) {
                             self.colourObserver.currentColor.on = true
+                            self.colourObserver.sendFadeIn()
                         }
                 }
         }
