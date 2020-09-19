@@ -52,6 +52,15 @@ struct SpectrumWheelView: View {
                         DragGesture(minimumDistance: 0)
                             .updating(self.$currentDragColor) { (dragValue, currentDragColor, _) in
                                     currentDragColor = SpectrumWheelView.color(forLocation: dragValue.location)
+
+                                // this may be possible but needs to be throttled
+                                // otherwise it generates too many transmissions to the bluetooth device, which then lags
+//                                if let color = currentDragColor {
+//                                    self.colourObserver.currentColor =
+//                                        (color.hue, color.value, self.colourObserver.currentColor.on)
+//
+//                                    self.colourObserver.sendCurrentColour()
+//                                }
                             }
                         .onEnded { dragValue in
                             let newColor = SpectrumWheelView.color(forLocation: dragValue.location)
