@@ -41,9 +41,20 @@ class Bluetooth: NSObject {
     static let bluetoothUARTRX = NSNotification.Name(rawValue: "bluetoothUARTRX")
     static let bluetoothUARTDataKey = "bluetoothUARTDataKey"
 
+    var shouldReconnect = true {
+        didSet {
+            if shouldReconnect {
+                startReconnectionTimer()
+                connect()
+            } else {
+                stopReconnectionTimer()
+            }
+        }
+    }
+
     public var state: State = .undefined {
         didSet {
-            if state == .disconnected {
+            if state == .disconnected, shouldReconnect {
                 startReconnectionTimer()
             } else {
                 stopReconnectionTimer()
@@ -141,7 +152,27 @@ class Bluetooth: NSObject {
             }
         }
     }
+
+
+    func disconnect() {
+        if let uartDevice = uartDevice {
+            if cbManager.retrieveConnectedPeripherals(withServices: [BLEService_UUID]).contains(uartDevice) {
+                cbManager.cancelPeripheralConnection(uartDevice)
+                state = .connecting
+            }
+        }
+    }
 }
+
+// bluetooth should go through the following process...
+// after start or bluetooth power on, start scanning for the adafruit bluefruit shield
+// when the bluefruit shield CBPeripheral has been discovered, assuming connections are enabled, check if we are already
+// ...connected and if not then try to connect it
+
+// after we connect, try to discover the services available on the device, then the characteristics of each of the
+// ...services we discover and finally the descriptors of those characteristics.
+
+// as each characteristic is discovered
 
 extension Bluetooth: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -156,7 +187,9 @@ extension Bluetooth: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         uartDevice = peripheral
         print("discovered device \(peripheral.name ?? "---") with rssi \(RSSI)")
-        connect()
+        if shouldReconnect {
+            connect()
+        }
     }
 
     func centralManager(_ central: CBCentralManager, connectionEventDidOccur event: CBConnectionEvent, for peripheral: CBPeripheral) {

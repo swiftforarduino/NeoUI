@@ -66,14 +66,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        let application = UIApplication.shared
+        guard let appDelegate = application.delegate as? AppDelegate else {
+            print("invalid delegate")
+            return
+        }
+
+        appDelegate.cancelBluetoothInactivityTimeout(application: application)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        let application = UIApplication.shared
+        guard let appDelegate = application.delegate as? AppDelegate else {
+            print("invalid delegate")
+            return
+        }
+
+        appDelegate.startBluetoothInactivityTimeout(application: application, timeout: 10)
     }
-
-
 }
 

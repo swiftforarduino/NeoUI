@@ -32,6 +32,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    // background disconnect...
+    // when we enter the background, request app processing time using beginBackgroundTask
+    // and start a timer immediately, timeout N seconds (e.g. 30)
+    // when the timer expires, disconnect from bluetooth
+    // if the app comes to foreground before the timer expires, cancel the timer
+    // if the background execution time expires, cancel the timer and disconnect from bluetooth immediately
+    var disconnectionTimerTask: UIBackgroundTaskIdentifier?
+    var disconnectionTimer: Timer?
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        startBluetoothInactivityTimeout(application: application, timeout: 10)
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        cancelBluetoothInactivityTimeout(application: application)
+    }
 }
 
+extension AppDelegate {
+    // pull the bluetooth to background methods into here and call it from app go to background/foreground and from
+    // scene go to background/foreground
+    func startBluetoothInactivityTimeout(application: UIApplication, timeout: TimeInterval) {
+        // request additional background time, to allow the disconnection timer to run
+        self.disconnectionTimerTask = application.beginBackgroundTask(expirationHandler:{
+            // timeslot ran out, stop timer, disconnect, end task
+            self.bluetoothDisconnect(application: application)
+        })
+
+        // start a disconnection timer
+        disconnectionTimer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { _ in
+            self.bluetoothDisconnect(application: application)
+        }
+    }
+
+    func cancelBluetoothInactivityTimeout(application: UIApplication) {
+        if let disconnectionTimer = self.disconnectionTimer {
+            disconnectionTimer.invalidate()
+            self.disconnectionTimer = nil
+        }
+
+        // if we had already disconnected, set it back up
+        Bluetooth.shared.shouldReconnect = true
+    }
+
+    private func bluetoothDisconnect(application: UIApplication) {
+        if let disconnectionTimer = self.disconnectionTimer {
+            disconnectionTimer.invalidate()
+            self.disconnectionTimer = nil
+        }
+
+        Bluetooth.shared.shouldReconnect = false
+        Bluetooth.shared.disconnect()
+
+        if let disconnectionTimerTask = self.disconnectionTimerTask {
+            application.endBackgroundTask(disconnectionTimerTask)
+        }
+    }
+}
